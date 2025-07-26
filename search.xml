@@ -4,13 +4,25 @@
   
     
     <entry>
-      <title>Hello World</title>
-      <link href="/2025/07/24/hello-world/"/>
-      <url>/2025/07/24/hello-world/</url>
+      <title>我的第一篇博客</title>
+      <link href="/2025/07/26/hello-world/"/>
+      <url>/2025/07/26/hello-world/</url>
       
-        <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>]]></content>
+        <content type="html"><![CDATA[<h1 id="学海无涯，愿留微痕"><a href="#学海无涯，愿留微痕" class="headerlink" title="学海无涯，愿留微痕"></a>学海无涯，愿留微痕</h1><hr><h2 id="自我介绍"><a href="#自我介绍" class="headerlink" title="自我介绍"></a>自我介绍</h2><p>本人是一名来自深圳的软件工程专业的学生，并无过多可介绍。常言”人贵自知”，然审视己身，爱好虽广，却皆如蜻蜓点水，浅尝辄止，涉猎的多了每种都只能称”入门”。</p><hr><h2 id="为什么写博客"><a href="#为什么写博客" class="headerlink" title="为什么写博客"></a>为什么写博客</h2><ul><li><p><strong>其一</strong>，实有几分功利之念萦怀，作为软件工程专业的学生，主修就是Java，而”Java已死”之类的论调不绝于耳，无论其真实性如何，都让我意识到在技术洪流中，仅仅掌握课堂知识可能并不足够，或许是为了提高自己的竞争力，我想开始写博客来包装自己，希望终能汇成证明自己价值的篇章。</p></li><li><p><strong>其二</strong>，亦是更深层的叩问，源于内心久积的空茫。转眼大学时光已过大半，校园学习生涯似乎接近尾声。回首过去十余年的”苦读”，竟发现自己留下的几乎只有为了应试而堆积的、厚重的笔记本，不为爱好而学。那些真正因兴趣而生的灵光一闪、解决问题的豁然开朗、探索未知的兴奋悸动，仿佛都消散在了时间里。这让我感到一种难以言喻的空白。大学的自由也有学业自由，我可以凭着自己的好奇心，去学任何想学的东西，而不仅仅是为了分数。写博客，或许就是一个契机。它不仅能见证我的成长，更能帮我找回学习本身那种纯粹。</p></li></ul><hr><h2 id="博客会写些什么"><a href="#博客会写些什么" class="headerlink" title="博客会写些什么"></a>博客会写些什么</h2><p>当然就是自己学习的记录，或者是遇到的问题的解决方法，可能还会被我拿来当作代码仓库，以后想用就翻出来。</p><p>虽然专业中写的最多的就是Java，但我实在是喜欢不上Java，哪怕它很优秀也很强大。或许是被网络上的舆论所影响了，我已经在考虑转型。前几年风风火火的Web3.0和区块链现在已经有所沉寂，在发展中确实方方面面都受到限制，但我依旧有研究区块链的兴趣，研究它，对我而言并非追逐风口，更像是对一种可能性的好奇与押注。与其在犹豫中观望，不如躬身入局。所以接下来我会先从最基础的Solidity开始学起并同步开始写博客，希望自己能坚持下来。</p><hr><h2 id="写在开始之际"><a href="#写在开始之际" class="headerlink" title="写在开始之际"></a>写在开始之际</h2><p>写这第一篇博客，像在空白的画布上落下第一笔。自知文笔稚拙，思虑或显浅薄。但重要的不是完美，而是开始，是行动，是留下属于自己思考与成长的痕迹，而非让它们在记忆中无声湮灭。</p>]]></content>
       
       
+      <categories>
+          
+          <category> 杂谈闲聊 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 随笔 </tag>
+            
+        </tags>
       
     </entry>
     
