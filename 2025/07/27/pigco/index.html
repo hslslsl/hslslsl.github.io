@@ -1,0 +1,277 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>PicGo+Github搭建个人图床 | 流水博客</title><meta name="author" content="流水"><meta name="copyright" content="流水"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="为了方便写博客，需要搭建图床来方便图片插入，今天搭建了一下发现还是会遇到一些问题">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PicGo+Github搭建个人图床">
+<meta property="og:url" content="http://example.com/2025/07/27/pigco/index.html">
+<meta property="og:site_name" content="流水博客">
+<meta property="og:description" content="为了方便写博客，需要搭建图床来方便图片插入，今天搭建了一下发现还是会遇到一些问题">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/winter.jpg">
+<meta property="article:published_time" content="2025-07-27T05:19:55.595Z">
+<meta property="article:modified_time" content="2025-07-27T06:18:48.595Z">
+<meta property="article:author" content="流水">
+<meta property="article:tag" content="picgo">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/winter.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "PicGo+Github搭建个人图床",
+  "url": "http://example.com/2025/07/27/pigco/",
+  "image": "http://example.com/img/winter.jpg",
+  "datePublished": "2025-07-27T05:19:55.595Z",
+  "dateModified": "2025-07-27T06:18:48.595Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "流水",
+      "url": "http://example.com"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.ico"><link rel="canonical" href="http://example.com/2025/07/27/pigco/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":150,"languages":{"author":"作者: 流水","link":"链接: ","source":"来源: 流水博客","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'PicGo+Github搭建个人图床',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg" style="background: linear-gradient(180deg, #2a213f, #423a54, #59526a, #716b7f);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/winter.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">2</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">2</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/shuoshuo/"><i class="fa-fw fas fa-comment-dots"></i><span> 说说</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-list"></i><span> 清单</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></li><li><a class="site-page child" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/top_img.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">流水博客</span></a><a class="nav-page-title" href="/"><span class="site-name">PicGo+Github搭建个人图床</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/shuoshuo/"><i class="fa-fw fas fa-comment-dots"></i><span> 说说</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-list"></i><span> 清单</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></li><li><a class="site-page child" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></li></ul></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">PicGo+Github搭建个人图床</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-07-27T05:19:55.595Z" title="发表于 2025-07-27 13:19:55">2025-07-27</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-07-27T06:18:48.595Z" title="更新于 2025-07-27 14:18:48">2025-07-27</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%95%99%E7%A8%8B/">教程</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">796</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>2分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="post-outdate-notice" data="{&quot;limitDay&quot;:365,&quot;messagePrev&quot;:&quot;本文最后更新于&quot;,&quot;messageNext&quot;:&quot;天前，文章内容可能已过时。&quot;,&quot;postUpdate&quot;:&quot;2025-07-27 14:18:48&quot;}" hidden></div><h1 id="PicGo-Github搭建个人图床"><a href="#PicGo-Github搭建个人图床" class="headerlink" title="PicGo+Github搭建个人图床"></a>PicGo+Github搭建个人图床</h1><h2 id="下载安装PicGo"><a href="#下载安装PicGo" class="headerlink" title="下载安装PicGo"></a>下载安装PicGo</h2><p>首先我们到github搜索picgo，这里附上网址<a target="_blank" rel="noopener" href="https://github.com/Molunerfinn/PicGo">https://github.com/Molunerfinn/PicGo</a></p>
+<p>点开Releases下载符合自己系统的版本</p>
+<div style="text-align: center;">   <img src="https://cdn.jsdelivr.net/gh/hslslsl/picgo/img/picgo%E6%95%99%E7%A8%8B1.png" alt="image-20250727125600266" style="zoom: 40%;" /> </div>
+
+<div style="text-align: center;">   <img src="https://cdn.jsdelivr.net/gh/hslslsl/picgo/img/picgo%E6%95%99%E7%A8%8B2.png" alt="image-20250727125847630" style="zoom:50%;" /> </div>
+
+<p>下载之后根据提示进行安装，安装完成运行程序，或许会发现没有窗口显示，当时我以为文件损坏了，又是重新下载又是检查配置文件检查日志的，后来发现它在这</p>
+<div style="text-align: center;">   <img src="https://cdn.jsdelivr.net/gh/hslslsl/picgo/img/picgo%E6%95%99%E7%A8%8B3.png" alt="image-20250727130216773" style="zoom:50%;" /> </div>
+
+<p>一点就打开了。</p>
+<h2 id="配置picgo"><a href="#配置picgo" class="headerlink" title="配置picgo"></a>配置picgo</h2><p>打开picgo设置，选择自己需要的图床，这里以github为例</p>
+<img src="https://cdn.jsdelivr.net/gh/hslslsl/picgo/img/picgo%E6%95%99%E7%A8%8B4.png" alt="image-20250727131905576" style="zoom:50%;" />
+
+<p>之后点开图床设置，能找到github，点开</p>
+<img src="https://cdn.jsdelivr.net/gh/hslslsl/picgo/img/pigco%E6%95%99%E7%A8%8B5.png" alt="image-20250727132653416" style="zoom:50%;" />
+
+<p>这里需要填一些设置</p>
+<ol>
+<li><p>首先是仓库名，需要我们到github重新创建一个仓库，<strong>一定得是public</strong>，名字随意，然后复制完整的仓库名，即“id&#x2F;仓库名”</p>
+</li>
+<li><p>然后是分支名填main即可</p>
+</li>
+<li><p>存储路径就是在github中存到哪个文件夹，我们就写”img&#x2F;“即可</p>
+</li>
+<li><p>最后一个框是cdn链接，就写上<a target="_blank" rel="noopener" href="https://cdn.jsdelivr.net/gh/+%E4%BB%93%E5%BA%93%E5%90%8D">https://cdn.jsdelivr.net/gh/+仓库名</a></p>
+</li>
+</ol>
+<p>关于Token我们需要去github上生成</p>
+<p>打开GitHub -&gt; 点击头像 -&gt; settings -&gt; 划到最底下找到Developer Settings -&gt; 找到tokens，生成新token（classic）</p>
+<img src="https://cdn.jsdelivr.net/gh/hslslsl/picgo/img/picgo%E6%95%99%E7%A8%8B7.png" alt="image-20250727134023692" style="zoom:50%;" />
+
+<img src="https://cdn.jsdelivr.net/gh/hslslsl/picgo/img/picgo%E6%95%99%E7%A8%8B8.png" alt="image-20250727134511260" style="zoom:50%;" />
+
+<p><strong>注意生成的Token只会在创建的时候展示一次，请保存好</strong>，复制token填入picgo中即可，点击设为默认图床。</p>
+<h2 id="如何使用"><a href="#如何使用" class="headerlink" title="如何使用"></a>如何使用</h2><p>如果是平时想上传图片到github上的话，只需要在picgo主页选择上传的方式即可</p>
+<img src="https://cdn.jsdelivr.net/gh/hslslsl/picgo/img/picgo%E6%95%99%E7%A8%8B9.png" alt="image-20250727135250247" style="zoom:50%;" />
+
+<p>如果是想在写markdown文件的时候插入图片的话，这里以Typora做演示</p>
+<p>打开偏好设置 -&gt; 选择图像 -&gt; 找到上传服务，选择PicGo(app) -&gt; PicGo路径选择下载picgo的目录</p>
+<p>之后可以验证图片上传选项</p>
+<img src="https://cdn.jsdelivr.net/gh/hslslsl/picgo/img/picgo%E6%95%99%E7%A8%8B10.png" alt="image-20250727135502092" style="zoom:50%;" />
+
+<p>在写文章的时候，如果需要插入图片，直接右键插入图像，或者是截图复制粘贴进来，插入之后会发现显示的仍是本地的路径，我们需要点击”上传图片“来上传到github上，之后就会变成一张网络图片了</p>
+<img src="https://cdn.jsdelivr.net/gh/hslslsl/picgo/img/picgo%E6%95%99%E7%A8%8B11.png" alt="image-20250727140037182" style="zoom:50%;" />
+
+<p>大功告成！</p>
+<h2 id="可能会遇到的问题"><a href="#可能会遇到的问题" class="headerlink" title="可能会遇到的问题"></a>可能会遇到的问题</h2><p>在搭建的过程中遇到过一些问题</p>
+<ol>
+<li>Typora在验证图片上传选项时出现错误，因为需要picgo上设置里找到设置Server，监听端口需要和Typora一致36677（默认）</li>
+</ol>
+<img src="https://cdn.jsdelivr.net/gh/hslslsl/picgo/img/picgo%E6%95%99%E7%A8%8B12.png" alt="image-20250727140609601" style="zoom:50%;" />
+
+<ol start="2">
+<li><p>picgo上传图片时显示上传失败，请检查配置项和网络，在网上搜索了一圈也解决不了，有说把Server关了再开的，有说这说那的，我的报错日志是Error: connect ECONNREFUSED 127.0.0.1:443，最后是在picgo的设置里，找到代理和镜像，上传代理写上<a href="https://127.0.0.1:7890，毕竟github在大陆访问还是不太稳定">https://127.0.0.1:7890，毕竟github在大陆访问还是不太稳定</a></p>
+</li>
+<li><p>还有一种报错也是显示上传失败，请检查配置项和网络，可能是你上传图片的时候上传了两张命名一样的图片</p>
+<img src="https://cdn.jsdelivr.net/gh/hslslsl/picgo/img/picgo%E6%95%99%E7%A8%8B13.png" alt="image-20250727141244461" style="zoom:50%;" />
+
+<p>或许以上的办法都没法帮你解决问题，最好的办法就是查看日志啦，日志文件在C:\Users\用户名\AppData\Roaming\picgo\里，那个picgo.log就是啦。</p>
+<p>到此结束，over。</p>
+</li>
+</ol>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://example.com">流水</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2025/07/27/pigco/">http://example.com/2025/07/27/pigco/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="http://example.com" target="_blank">流水博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/picgo/">picgo</a></div><div class="post-share"><div class="social-share" data-image="/img/winter.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width" href="/2025/07/26/hello-world/" title="我的第一篇博客"><img class="cover" src="/img/myfirstblog.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">我的第一篇博客</div></div><div class="info-2"><div class="info-item-1">写这第一篇博客，像在空白的画布上落下第一笔。自知文笔稚拙，思虑或显浅薄。但重要的不是完美，而是开始，是行动，是留下属于自己思考与成长的痕迹，而非让它们在记忆中无声湮灭。</div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/winter.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">流水</div><div class="author-info-description">珍惜淡定的心境，苦过后更加清</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">2</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">2</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/hslslsl"><i class="fab fa-github"></i><span>关注我</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/hslslsl" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:879966125@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">欢迎访问我的博客！</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#PicGo-Github%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%9B%BE%E5%BA%8A"><span class="toc-number">1.</span> <span class="toc-text">PicGo+Github搭建个人图床</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85PicGo"><span class="toc-number">1.1.</span> <span class="toc-text">下载安装PicGo</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AEpicgo"><span class="toc-number">1.2.</span> <span class="toc-text">配置picgo</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8"><span class="toc-number">1.3.</span> <span class="toc-text">如何使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%AF%E8%83%BD%E4%BC%9A%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-number">1.4.</span> <span class="toc-text">可能会遇到的问题</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/07/27/pigco/" title="PicGo+Github搭建个人图床">PicGo+Github搭建个人图床</a><time datetime="2025-07-27T05:19:55.595Z" title="发表于 2025-07-27 13:19:55">2025-07-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/07/26/hello-world/" title="我的第一篇博客"><img src="/img/myfirstblog.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="我的第一篇博客"/></a><div class="content"><a class="title" href="/2025/07/26/hello-world/" title="我的第一篇博客">我的第一篇博客</a><time datetime="2025-07-25T16:00:00.000Z" title="发表于 2025-07-26 00:00:00">2025-07-26</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(/img/top_img.png);"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;2025 By 流水</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.4.2</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><div class="js-pjax"><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = `%%{init:{ 'theme':'${theme}'}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (true) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script></div><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-show-text.min.js" data-mobile="false" data-text="I,LOVE,YOU" data-fontsize="15px" data-random="false" async="async"></script><script async data-pjax src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-busuanzi@2.3/js/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章..." type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>
