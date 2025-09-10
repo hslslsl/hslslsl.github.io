@@ -1,0 +1,503 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Solidity入门第一课 | 流水博客</title><meta name="author" content="流水"><meta name="copyright" content="流水"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Solidity入门第一课：从零实现HelloWorld合约，吃透核心数据类型与基础逻辑">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Solidity入门第一课">
+<meta property="og:url" content="http://example.com/2025/09/10/solidity_session1/index.html">
+<meta property="og:site_name" content="流水博客">
+<meta property="og:description" content="Solidity入门第一课：从零实现HelloWorld合约，吃透核心数据类型与基础逻辑">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/Solidity.png">
+<meta property="article:published_time" content="2025-09-10T14:57:58.830Z">
+<meta property="article:modified_time" content="2025-09-10T15:14:35.538Z">
+<meta property="article:author" content="流水">
+<meta property="article:tag" content="Solidity">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/Solidity.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Solidity入门第一课",
+  "url": "http://example.com/2025/09/10/solidity_session1/",
+  "image": "http://example.com/img/Solidity.png",
+  "datePublished": "2025-09-10T14:57:58.830Z",
+  "dateModified": "2025-09-10T15:14:35.538Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "流水",
+      "url": "http://example.com"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.ico"><link rel="canonical" href="http://example.com/2025/09/10/solidity_session1/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":150,"languages":{"author":"作者: 流水","link":"链接: ","source":"来源: 流水博客","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Solidity入门第一课',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg" style="background: linear-gradient(180deg, #2a213f, #423a54, #59526a, #716b7f);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/winter.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">5</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">4</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/shuoshuo/"><i class="fa-fw fas fa-comment-dots"></i><span> 说说</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-list"></i><span> 清单</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></li><li><a class="site-page child" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/top_img.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">流水博客</span></a><a class="nav-page-title" href="/"><span class="site-name">Solidity入门第一课</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/shuoshuo/"><i class="fa-fw fas fa-comment-dots"></i><span> 说说</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-list"></i><span> 清单</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></li><li><a class="site-page child" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></li></ul></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">Solidity入门第一课</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-09-10T14:57:58.830Z" title="发表于 2025-09-10 22:57:58">2025-09-10</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-09-10T15:14:35.538Z" title="更新于 2025-09-10 23:14:35">2025-09-10</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/">区块链</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">3.9k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>13分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="post-outdate-notice" data="{&quot;limitDay&quot;:365,&quot;messagePrev&quot;:&quot;本文最后更新于&quot;,&quot;messageNext&quot;:&quot;天前，文章内容可能已过时。&quot;,&quot;postUpdate&quot;:&quot;2025-09-10 23:14:35&quot;}" hidden></div><h1 id="Solidity入门第一课：从零实现HelloWorld合约，吃透核心数据类型与基础逻辑"><a href="#Solidity入门第一课：从零实现HelloWorld合约，吃透核心数据类型与基础逻辑" class="headerlink" title="Solidity入门第一课：从零实现HelloWorld合约，吃透核心数据类型与基础逻辑"></a>Solidity入门第一课：从零实现HelloWorld合约，吃透核心数据类型与基础逻辑</h1><p>作为区块链开发的入门基石，Solidity是以太坊及众多EVM（以太坊虚拟机）兼容链的智能合约编程语言。本节课我们将通过一个完整的<code>HelloWorld</code>合约，拆解Solidity的基础语法、核心数据类型、复合结构（结构体&#x2F;数组&#x2F;映射）及函数设计逻辑，帮你建立Solidity开发的第一套知识框架。</p>
+<h2 id="一、合约基础框架：从“头部声明”开始"><a href="#一、合约基础框架：从“头部声明”开始" class="headerlink" title="一、合约基础框架：从“头部声明”开始"></a>一、合约基础框架：从“头部声明”开始</h2><p>任何Solidity合约的开头都需要两个核心声明：<strong>SPDX许可证</strong>和<strong>编译器版本指定</strong>，这是合约合法性与兼容性的基础。我们先看完整合约的头部代码，再逐一解析：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">//SPDX-License-Identifier:MIT</span><br><span class="line">pragma solidity ^0.8.20;</span><br><span class="line"></span><br><span class="line">contract HelloWorld&#123;</span><br><span class="line">    // 合约主体内容...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="1-SPDX许可证：明确代码开源协议"><a href="#1-SPDX许可证：明确代码开源协议" class="headerlink" title="1. SPDX许可证：明确代码开源协议"></a>1. SPDX许可证：明确代码开源协议</h3><p><code>//SPDX-License-Identifier:MIT</code> 是Solidity 0.6.8及以上版本的强制要求（虽非语法报错，但属于行业规范），作用是声明合约代码的开源许可证类型。</p>
+<ul>
+<li><strong>MIT许可证</strong>：最宽松的开源协议之一，允许任何人自由使用、修改、分发代码，仅需保留原许可证声明，非常适合学习和开源项目。</li>
+<li>其他常见许可证：<code>GPL-3.0</code>（要求修改后的代码同样开源）、<code>Apache-2.0</code>（商用友好，需保留版权声明）。</li>
+</ul>
+<h3 id="2-编译器版本指定：避免兼容性问题"><a href="#2-编译器版本指定：避免兼容性问题" class="headerlink" title="2. 编译器版本指定：避免兼容性问题"></a>2. 编译器版本指定：避免兼容性问题</h3><p><code>pragma solidity ^0.8.20;</code> 用于指定合约兼容的Solidity编译器版本，其中：</p>
+<ul>
+<li><code>pragma</code>：Solidity的关键字，意为“编译指令”。</li>
+<li><code>^0.8.20</code>：表示“兼容0.8.20及以上版本，但不兼容9.0.0及更高主版本”（遵循语义化版本规范）。<ul>
+<li>为什么选0.8.x？0.8.0及以上版本内置了<strong>溢出检查</strong>（无需再引入<code>SafeMath</code>库），且修复了多个安全漏洞，是目前主流的稳定版本。</li>
+</ul>
+</li>
+</ul>
+<h2 id="二、核心数据类型：合约的“基本积木”"><a href="#二、核心数据类型：合约的“基本积木”" class="headerlink" title="二、核心数据类型：合约的“基本积木”"></a>二、核心数据类型：合约的“基本积木”</h2><p>Solidity的数据类型分为<strong>值类型</strong>（存储具体值）和<strong>引用类型</strong>（存储地址，指向实际数据）。我们先从合约中定义的基础值类型开始讲解。</p>
+<h3 id="1-布尔型（bool）：真-假判断"><a href="#1-布尔型（bool）：真-假判断" class="headerlink" title="1. 布尔型（bool）：真&#x2F;假判断"></a>1. 布尔型（bool）：真&#x2F;假判断</h3><p>布尔型是最简单的数据类型，仅包含<code>true</code>（真）和<code>false</code>（假）两个值，常用于条件判断（如“是否已初始化”“权限是否开启”）。</p>
+<p>合约中的定义：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">bool boolVar_1 = true;</span><br><span class="line">bool boolVar_2 = false;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>使用场景</strong>：比如判断某个用户是否已注册（<code>isRegistered = true</code>）、某个功能是否已启用（<code>isActive = false</code>）。</li>
+<li><strong>注意</strong>：布尔型不能与其他类型（如整数）直接比较，需严格用<code>== true</code>或<code>== false</code>判断。</li>
+</ul>
+<h3 id="2-整数型（uint-int）：数值存储的核心"><a href="#2-整数型（uint-int）：数值存储的核心" class="headerlink" title="2. 整数型（uint&#x2F;int）：数值存储的核心"></a>2. 整数型（uint&#x2F;int）：数值存储的核心</h3><p>整数型是Solidity中最常用的类型，分为<strong>无符号整数（uint）</strong> 和<strong>有符号整数（int）</strong>，两者均需指定“位数”（表示存储范围）。</p>
+<p>合约中的定义：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// 无符号整数：只能存储非负整数（0及以上）</span><br><span class="line">uint256 uintVar = 123123;</span><br><span class="line">// 有符号整数：可存储正、负、零</span><br><span class="line">int256 intVar = -1;</span><br></pre></td></tr></table></figure>
+
+
+<h4 id="关键细节："><a href="#关键细节：" class="headerlink" title="关键细节："></a>关键细节：</h4><ul>
+<li><strong>位数含义</strong>：<code>uint256</code>表示“256位无符号整数”，存储范围是<code>0 ~ 2^256 - 1</code>（约1.15e77，足够存储极大数值）；<code>int256</code>表示“256位有符号整数”，存储范围是<code>-2^255 ~ 2^255 - 1</code>。</li>
+<li><strong>为什么首选256位？</strong> EVM（以太坊虚拟机）对256位数据的处理效率最高，即使存储小数值（如100），用<code>uint256</code>也比<code>uint8</code>（8位，范围0~255）更省gas（因为EVM会自动将小位数扩展为256位处理）。</li>
+<li><strong>简写规则</strong>：<code>uint</code>默认等价于<code>uint256</code>，<code>int</code>默认等价于<code>int256</code>，开发中可简写（如<code>uint num = 100;</code>）。</li>
+</ul>
+<h3 id="3-字节与字符串（bytes-string）：文本存储"><a href="#3-字节与字符串（bytes-string）：文本存储" class="headerlink" title="3. 字节与字符串（bytes&#x2F;string）：文本存储"></a>3. 字节与字符串（bytes&#x2F;string）：文本存储</h3><p>Solidity中存储文本有两种核心类型：<code>bytes</code>（字节数组）和<code>string</code>（字符串），两者本质都是字节序列，但适用场景不同。</p>
+<p>合约中的定义：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// 固定长度字节数组：长度32字节，存储效率高</span><br><span class="line">bytes32 bytesVar = &quot;Hello World!&quot; ;</span><br><span class="line">// 动态长度字符串：长度随内容动态变化，灵活性高</span><br><span class="line">string strVar = &quot;Hello World!&quot;;</span><br></pre></td></tr></table></figure>
+
+
+<h4 id="核心区别与使用场景："><a href="#核心区别与使用场景：" class="headerlink" title="核心区别与使用场景："></a>核心区别与使用场景：</h4><table>
+<thead>
+<tr>
+<th>类型</th>
+<th>长度特性</th>
+<th>存储效率</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>bytesN</code></td>
+<td>固定长度（N为1~32）</td>
+<td>高</td>
+<td>短文本、哈希值、固定格式数据（如身份证号）</td>
+</tr>
+<tr>
+<td><code>string</code></td>
+<td>动态长度</td>
+<td>中</td>
+<td>变长文本（如用户昵称、文章内容）</td>
+</tr>
+<tr>
+<td><code>bytes</code></td>
+<td>动态长度字节数组</td>
+<td>高</td>
+<td>二进制数据（如图片片段、加密数据）</td>
+</tr>
+</tbody></table>
+<ul>
+<li><strong>补充</strong>：<code>string</code>本质是“UTF-8编码的动态字节数组”，但不能直接与<code>bytes</code>转换，需通过<code>abi.encodePacked()</code>或<code>string()</code>函数：<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// string转bytes</span><br><span class="line">bytes memory strToBytes = bytes(strVar);</span><br><span class="line">// bytes转string</span><br><span class="line">string memory bytesToString = string(bytesVar);</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="4-地址类型（address）：区块链账户的“身份证”"><a href="#4-地址类型（address）：区块链账户的“身份证”" class="headerlink" title="4. 地址类型（address）：区块链账户的“身份证”"></a>4. 地址类型（address）：区块链账户的“身份证”</h3><p><code>address</code>类型用于存储以太坊账户地址（包括<strong>外部账户</strong>（用户钱包）和<strong>合约账户</strong>（智能合约）），长度固定为20字节（对应40个十六进制字符）。</p>
+<p>合约中的定义：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">address addrVar = 0x5B38Da6a701c568545dCfcB03FcB875f56beddC4;</span><br></pre></td></tr></table></figure>
+
+
+<h4 id="关键特性与常用操作："><a href="#关键特性与常用操作：" class="headerlink" title="关键特性与常用操作："></a>关键特性与常用操作：</h4><ul>
+<li><strong>地址零值</strong>：未初始化的<code>address</code>默认值为<code>0x0000000000000000000000000000000000000000</code>（简称<code>address(0)</code>），常用于判断地址是否已赋值（如合约中的<code>infoMapping[_id].addr == address(0)</code>）。</li>
+<li><strong>核心方法</strong>：<code>address</code>类型自带ETH转账相关方法，如：<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// 向指定地址转账ETH（单位：wei，1ETH=1e18wei）</span><br><span class="line">addrVar.transfer(1 ether);</span><br><span class="line">// 调用外部合约函数（低级别调用）</span><br><span class="line">(bool success, ) = addrVar.call(abi.encodeWithSignature(&quot;funcName()&quot;));</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="三、复合数据类型：组织复杂数据的“工具”"><a href="#三、复合数据类型：组织复杂数据的“工具”" class="headerlink" title="三、复合数据类型：组织复杂数据的“工具”"></a>三、复合数据类型：组织复杂数据的“工具”</h2><p>当基础类型无法满足需求时（如存储“用户信息”“订单数据”），需要用<strong>结构体（struct）</strong>、<strong>数组（array）</strong>、<strong>映射（mapping）</strong> 等复合类型来组织数据。</p>
+<h3 id="1-结构体（struct）：自定义复合类型"><a href="#1-结构体（struct）：自定义复合类型" class="headerlink" title="1. 结构体（struct）：自定义复合类型"></a>1. 结构体（struct）：自定义复合类型</h3><p>结构体允许将多个不同类型的变量“打包”成一个新类型，类似其他语言的“类”或“数据模型”，适合存储结构化数据。</p>
+<p>合约中的定义：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">// 定义结构体Info，包含3个字段</span><br><span class="line">struct Info&#123;</span><br><span class="line">    string phrase;  // 文本内容</span><br><span class="line">    uint256 id;     // 唯一标识</span><br><span class="line">    address addr;   // 关联账户地址</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>使用场景</strong>：比如存储用户信息（<code>struct User &#123; string name; uint age; address wallet; &#125;</code>）、订单信息（<code>struct Order &#123; uint orderId; uint amount; address buyer; &#125;</code>）。</li>
+<li><strong>初始化方式</strong>：通过“结构体构造函数”直接初始化，如合约中<code>setHelloWorld</code>函数的写法：<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Info memory info = Info(newString, _id, msg.sender);</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="2-数组（array）：有序数据集合"><a href="#2-数组（array）：有序数据集合" class="headerlink" title="2. 数组（array）：有序数据集合"></a>2. 数组（array）：有序数据集合</h3><p>数组是有序存储相同类型数据的集合，分为<strong>固定长度数组</strong>和<strong>动态长度数组</strong>，适合存储多个同类型的结构体或基础类型数据。</p>
+<p>合约中的定义：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 动态长度数组：存储Info结构体，长度可动态增减</span><br><span class="line">Info[] infos;</span><br></pre></td></tr></table></figure>
+
+
+<h4 id="核心特性："><a href="#核心特性：" class="headerlink" title="核心特性："></a>核心特性：</h4><ul>
+<li><strong>固定长度数组</strong>：定义时指定长度（如<code>Info[5] fixedInfos;</code>），长度不可修改，访问时通过索引（从0开始）。</li>
+<li><strong>动态长度数组</strong>：定义时不指定长度（如<code>Info[] infos;</code>），可通过<code>push()</code>添加元素、<code>pop()</code>删除最后一个元素：<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">// 向动态数组添加元素</span><br><span class="line">infos.push(Info(&quot;Test&quot;, 2, msg.sender));</span><br><span class="line">// 删除数组最后一个元素</span><br><span class="line">infos.pop();</span><br><span class="line">// 访问数组元素（索引0为第一个元素）</span><br><span class="line">Info memory firstInfo = infos[0];</span><br></pre></td></tr></table></figure></li>
+<li><strong>注意</strong>：数组索引从0开始，且不能越界（如访问<code>infos[10]</code>但数组只有5个元素，会触发合约异常）。</li>
+</ul>
+<h3 id="3-映射（mapping）：键值对快速查询"><a href="#3-映射（mapping）：键值对快速查询" class="headerlink" title="3. 映射（mapping）：键值对快速查询"></a>3. 映射（mapping）：键值对快速查询</h3><p>映射是Solidity中用于“键值对”存储的结构，类似Python的<code>dict</code>、JavaScript的<code>Object</code>，查询效率极高（时间复杂度O(1)），适合通过“唯一键”快速查找对应数据。</p>
+<p>合约中的定义：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 映射：键为uint256类型的id，值为Info结构体</span><br><span class="line">mapping(uint256 id =&gt; Info info) infoMapping;</span><br></pre></td></tr></table></figure>
+
+
+<h4 id="关键特性与注意事项："><a href="#关键特性与注意事项：" class="headerlink" title="关键特性与注意事项："></a>关键特性与注意事项：</h4><ul>
+<li><strong>键与值的类型</strong>：键可以是<code>uint</code>、<code>address</code>、<code>bytes</code>等“值类型”，但不能是<code>string</code>、<code>array</code>、<code>struct</code>等引用类型；值可以是任意类型（包括结构体、数组、映射）。</li>
+<li><strong>默认值</strong>：映射中未赋值的键，其对应的值为“类型零值”（如<code>infoMapping[999]</code>未赋值时，<code>phrase</code>为空字符串，<code>id</code>为0，<code>addr</code>为<code>address(0)</code>）。</li>
+<li><strong>无法遍历</strong>：映射不存储“键的列表”，因此无法直接遍历所有键值对。若需遍历，需额外用数组存储所有键（如<code>uint256[] allIds;</code>），添加映射时同步将键存入数组。</li>
+</ul>
+<h2 id="四、函数设计：合约的“行为逻辑”"><a href="#四、函数设计：合约的“行为逻辑”" class="headerlink" title="四、函数设计：合约的“行为逻辑”"></a>四、函数设计：合约的“行为逻辑”</h2><p>函数是合约的核心执行单元，定义了合约的“可调用行为”。Solidity中函数需指定<strong>可见性</strong>和<strong>状态修饰符</strong>，以控制访问权限和状态交互方式。</p>
+<h3 id="1-函数的核心属性"><a href="#1-函数的核心属性" class="headerlink" title="1. 函数的核心属性"></a>1. 函数的核心属性</h3><p>先明确两个关键概念，再解析合约中的函数：</p>
+<table>
+<thead>
+<tr>
+<th>属性类型</th>
+<th>可选值</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>可见性</strong></td>
+<td><code>public</code>、<code>private</code>、<code>internal</code>、<code>external</code></td>
+<td>控制函数可被哪些主体调用</td>
+</tr>
+<tr>
+<td><strong>状态修饰符</strong></td>
+<td><code>view</code>、<code>pure</code>、<code>payable</code></td>
+<td>控制函数是否读取&#x2F;修改合约状态、是否接收ETH</td>
+</tr>
+<tr>
+<td><strong>返回值</strong></td>
+<td>通过<code>returns (类型 变量名)</code>指定，可返回多个值</td>
+<td>定义函数执行后的输出结果</td>
+</tr>
+</tbody></table>
+<h4 id="（1）可见性详解"><a href="#（1）可见性详解" class="headerlink" title="（1）可见性详解"></a>（1）可见性详解</h4><ul>
+<li><code>public</code>：最宽松，合约内、合约外（外部账户&#x2F;其他合约）、子合约均可调用（如<code>sayHello</code>、<code>setHelloWorld</code>）。</li>
+<li><code>private</code>：最严格，仅当前合约内可调用，子合约也无法调用。</li>
+<li><code>internal</code>：仅当前合约或其子合约可调用，外部账户&#x2F;其他合约无法调用（如<code>addinfo</code>）。</li>
+<li><code>external</code>：仅合约外（外部账户&#x2F;其他合约）可调用，当前合约内需通过<code>this.函数名()</code>调用（适合外部高频调用的函数，更省gas）。</li>
+</ul>
+<h4 id="（2）状态修饰符详解"><a href="#（2）状态修饰符详解" class="headerlink" title="（2）状态修饰符详解"></a>（2）状态修饰符详解</h4><ul>
+<li><code>view</code>：<strong>只读函数</strong>，仅读取合约状态变量（不修改），外部调用时不消耗gas（如<code>sayHello</code>，仅读取<code>infoMapping</code>和<code>strVar</code>）。</li>
+<li><code>pure</code>：<strong>纯运算函数</strong>，不读取也不修改合约状态，仅对输入参数做运算，外部调用时不消耗gas（如<code>addinfo</code>，仅做字符串拼接）。</li>
+<li><code>payable</code>：<strong>可接收ETH的函数</strong>，调用时可附带ETH（通过<code>msg.value</code>获取附带的ETH数量），如“购买商品”“捐赠”函数。</li>
+</ul>
+<h3 id="2-合约函数逐句解析"><a href="#2-合约函数逐句解析" class="headerlink" title="2. 合约函数逐句解析"></a>2. 合约函数逐句解析</h3><p>合约中定义了3个函数：<code>sayHello</code>、<code>setHelloWorld</code>、<code>addinfo</code>，我们逐一拆解：</p>
+<h4 id="（1）sayHello：查询型函数"><a href="#（1）sayHello：查询型函数" class="headerlink" title="（1）sayHello：查询型函数"></a>（1）sayHello：查询型函数</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">function sayHello(uint256 _id) public view returns(string memory)&#123;</span><br><span class="line">    if(infoMapping[_id].addr == address(0))&#123;</span><br><span class="line">        return addinfo(strVar);</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">        return addinfo(infoMapping[_id].phrase);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>功能</strong>：根据传入的<code>_id</code>查询映射中的<code>Info</code>，返回拼接后的文本。</li>
+<li><strong>逻辑拆解</strong>：<ol>
+<li>判断<code>infoMapping[_id].addr</code>是否为零地址（即该<code>_id</code>是否已通过<code>setHelloWorld</code>设置）；</li>
+<li>若未设置（零地址），调用<code>addinfo</code>函数，传入默认的<code>strVar</code>（“Hello World!”）；</li>
+<li>若已设置，调用<code>addinfo</code>函数，传入映射中存储的<code>phrase</code>；</li>
+<li>返回<code>addinfo</code>拼接后的结果。</li>
+</ol>
+</li>
+<li><strong>关键细节</strong>：<code>_id</code>参数加下划线是Solidity的命名规范，用于区分“函数参数”和“状态变量”（避免命名冲突）。</li>
+</ul>
+<h4 id="（2）setHelloWorld：写入型函数"><a href="#（2）setHelloWorld：写入型函数" class="headerlink" title="（2）setHelloWorld：写入型函数"></a>（2）setHelloWorld：写入型函数</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">function setHelloWorld(string memory newString, uint256 _id) public &#123;</span><br><span class="line">    Info memory info = Info(newString, _id, msg.sender);</span><br><span class="line">    infoMapping[_id] = info;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>功能</strong>：将用户传入的<code>newString</code>和<code>_id</code>，结合调用者地址（<code>msg.sender</code>），存储到<code>infoMapping</code>映射中。</li>
+<li><strong>逻辑拆解</strong>：<ol>
+<li>定义<code>Info</code>类型的<code>memory</code>变量<code>info</code>，通过结构体构造函数初始化（参数：<code>newString</code>、<code>_id</code>、<code>msg.sender</code>）；</li>
+<li>将<code>info</code>赋值给<code>infoMapping[_id]</code>，完成数据写入（<code>infoMapping</code>是<code>storage</code>类型，数据会永久存储在区块链上）。</li>
+</ol>
+</li>
+<li><strong>核心全局变量</strong>：<code>msg.sender</code>是Solidity的内置全局变量，表示“当前调用函数的账户地址”（外部账户或合约账户），常用于记录“操作人”（如谁修改了数据）。</li>
+</ul>
+<h4 id="（3）addinfo：内部工具函数"><a href="#（3）addinfo：内部工具函数" class="headerlink" title="（3）addinfo：内部工具函数"></a>（3）addinfo：内部工具函数</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">function addinfo(string memory helloWorldStr) internal pure returns (string memory)&#123;</span><br><span class="line">    // concat：Solidity 0.8.12+支持的字符串拼接函数</span><br><span class="line">    return string.concat(helloWorldStr,&quot;From HSL&#x27;s contract.&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>功能</strong>：内部工具函数，接收一个字符串，返回拼接“From HSL’s contract.”后的结果。</li>
+<li><strong>关键细节</strong>：<ol>
+<li><code>internal</code>可见性：仅<code>HelloWorld</code>合约内部可调用（如<code>sayHello</code>），外部无法直接调用；</li>
+<li><code>pure</code>修饰符：仅做字符串拼接，不读不写合约状态；</li>
+<li><code>string.concat</code>：Solidity 0.8.12及以上版本新增的字符串拼接函数，若使用更低版本，需用<code>abi.encodePacked()</code>替代：<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">return string(abi.encodePacked(helloWorldStr, &quot;From HSL&#x27;s contract.&quot;));</span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+</ul>
+<h2 id="五、存储位置：数据存在哪里？"><a href="#五、存储位置：数据存在哪里？" class="headerlink" title="五、存储位置：数据存在哪里？"></a>五、存储位置：数据存在哪里？</h2><p>Solidity中数据的存储位置决定了“生命周期”和“gas消耗”，合约注释中提到了<code>storage</code>、<code>memory</code>、<code>calldata</code>等，这里展开详解：</p>
+<table>
+<thead>
+<tr>
+<th>存储位置</th>
+<th>生命周期</th>
+<th>可修改性</th>
+<th>适用场景</th>
+<th>gas消耗</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>storage</code></td>
+<td>永久存储（区块链上）</td>
+<td>可修改</td>
+<td>合约状态变量（如<code>infoMapping</code>）</td>
+<td>高（写入需消耗gas）</td>
+</tr>
+<tr>
+<td><code>memory</code></td>
+<td>函数执行期间（EVM内存）</td>
+<td>可修改</td>
+<td>函数内临时数据（如<code>info</code>变量）</td>
+<td>低（仅内存占用）</td>
+</tr>
+<tr>
+<td><code>calldata</code></td>
+<td>函数调用期间（输入参数）</td>
+<td>不可修改</td>
+<td>外部函数的引用类型参数（如<code>string</code>）</td>
+<td>极低（无需复制）</td>
+</tr>
+<tr>
+<td><code>stack</code></td>
+<td>函数执行期间（栈）</td>
+<td>可修改</td>
+<td>简单局部变量（<code>uint</code>、<code>bool</code>）</td>
+<td>极低（容量有限，最多1024元素）</td>
+</tr>
+<tr>
+<td><code>code</code></td>
+<td>永久存储（区块链上）</td>
+<td>不可修改</td>
+<td>合约代码本身</td>
+<td>无（部署时一次性消耗）</td>
+</tr>
+<tr>
+<td><code>logs</code></td>
+<td>永久存储（区块链上）</td>
+<td>不可修改</td>
+<td>事件日志（用于前端监听）</td>
+<td>低（按日志长度计费）</td>
+</tr>
+</tbody></table>
+<h3 id="核心规则："><a href="#核心规则：" class="headerlink" title="核心规则："></a>核心规则：</h3><ul>
+<li>状态变量默认是<code>storage</code>，函数参数&#x2F;局部引用类型（如<code>string</code>、<code>array</code>）需显式指定<code>memory</code>或<code>calldata</code>；</li>
+<li><code>storage</code>变量赋值给<code>memory</code>变量：复制值（修改<code>memory</code>变量不影响<code>storage</code>）；</li>
+<li><code>memory</code>变量赋值给<code>storage</code>变量：覆盖值（修改会永久写入区块链）。</li>
+</ul>
+<h2 id="六、合约部署与调用：动手实践"><a href="#六、合约部署与调用：动手实践" class="headerlink" title="六、合约部署与调用：动手实践"></a>六、合约部署与调用：动手实践</h2><p>学习Solidity最好的方式是“边写边测”，这里推荐用<strong>Remix IDE</strong>（以太坊官方在线IDE，无需安装）快速部署和测试合约：</p>
+<h3 id="步骤1：打开Remix并创建合约"><a href="#步骤1：打开Remix并创建合约" class="headerlink" title="步骤1：打开Remix并创建合约"></a>步骤1：打开Remix并创建合约</h3><ol>
+<li>访问Remix官网：<a target="_blank" rel="noopener" href="https://remix.ethereum.org/">https://remix.ethereum.org/</a></li>
+<li>在左侧“File Explorer”面板，点击<code>+</code>号，创建<code>HelloWorld.sol</code>文件，粘贴完整合约代码。</li>
+</ol>
+<h3 id="步骤2：编译合约"><a href="#步骤2：编译合约" class="headerlink" title="步骤2：编译合约"></a>步骤2：编译合约</h3><ol>
+<li>切换到左侧“Solidity Compiler”面板；</li>
+<li>编译器版本选择<code>0.8.20</code>（或更高），点击“Compile HelloWorld.sol”，出现绿色对勾表示编译成功。</li>
+</ol>
+<h3 id="步骤3：部署合约"><a href="#步骤3：部署合约" class="headerlink" title="步骤3：部署合约"></a>步骤3：部署合约</h3><ol>
+<li>切换到左侧“Deploy &amp; Run Transactions”面板；</li>
+<li>“Environment”选择<code>Remix VM (London)</code>（测试环境，提供免费测试ETH）；</li>
+<li>点击“Deploy”按钮，合约部署成功后会显示在下方“Deployed Contracts”列表中。</li>
+</ol>
+<h3 id="步骤4：调用函数"><a href="#步骤4：调用函数" class="headerlink" title="步骤4：调用函数"></a>步骤4：调用函数</h3><ol>
+<li><strong>调用setHelloWorld</strong>：<ul>
+<li>在<code>setHelloWorld</code>输入框中，<code>newString</code>填<code>&quot;Hi Solidity!&quot;</code>，<code>_id</code>填<code>1</code>；</li>
+<li>点击<code>transact</code>按钮，弹出确认框后点击“Confirm”，消耗少量测试ETH；</li>
+</ul>
+</li>
+<li><strong>调用sayHello</strong>：<ul>
+<li>在<code>sayHello</code>输入框中，<code>_id</code>填<code>1</code>；</li>
+<li>点击<code>call</code>按钮，返回结果为<code>&quot;Hi Solidity!From HSL&#39;s contract.&quot;</code>；</li>
+</ul>
+</li>
+<li><strong>测试未设置的id</strong>：<ul>
+<li><code>sayHello</code>的<code>_id</code>填<code>2</code>，点击<code>call</code>，返回<code>&quot;Hello World!From HSL&#39;s contract.&quot;</code>（使用默认<code>strVar</code>）。</li>
+</ul>
+</li>
+</ol>
+<h2 id="七、新手常见问题与避坑指南"><a href="#七、新手常见问题与避坑指南" class="headerlink" title="七、新手常见问题与避坑指南"></a>七、新手常见问题与避坑指南</h2><ol>
+<li><strong>编译器版本不兼容</strong>：若编译报错“string.concat not found”，说明编译器版本低于0.8.12，需升级版本或替换为<code>abi.encodePacked</code>。</li>
+<li><strong>地址比较错误</strong>：不要用<code>infoMapping[_id].addr == 0</code>判断零地址，需用<code>infoMapping[_id].addr == address(0)</code>（Solidity不允许整数与地址直接比较）。</li>
+<li><strong>存储位置混淆</strong>：若函数内定义<code>Info storage info</code>，会直接引用状态变量（可能意外修改数据），新手建议先熟悉<code>memory</code>的使用。</li>
+<li><strong>gas消耗过高</strong>：避免在<code>view</code>&#x2F;<code>pure</code>函数内调用非<code>view</code>&#x2F;<code>pure</code>函数，否则会消耗gas；动态数组<code>push</code>过多元素也会导致gas溢出。</li>
+</ol>
+<h2 id="八、总结"><a href="#八、总结" class="headerlink" title="八、总结"></a>八、总结</h2><p>本节课通过<code>HelloWorld</code>合约，我们系统学习了Solidity的核心基础：</p>
+<ul>
+<li>合约头部声明（SPDX许可证、编译器版本）；</li>
+<li>基础数据类型（bool、uint、int、bytes、string、address）；</li>
+<li>复合数据类型（struct、array、mapping）；</li>
+<li>函数设计（可见性、状态修饰符、全局变量<code>msg.sender</code>）；</li>
+<li>存储位置（storage、memory、calldata）；</li>
+<li>合约部署与测试（Remix实践）。</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://example.com">流水</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2025/09/10/solidity_session1/">http://example.com/2025/09/10/solidity_session1/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="http://example.com" target="_blank">流水博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Solidity/">Solidity</a></div><div class="post-share"><div class="social-share" data-image="/img/Solidity.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width" href="/2025/09/10/%E9%9B%85%E6%80%9D%E5%8F%A3%E8%AF%AD/" title="雅思口语笔记分享"><img class="cover" src="/img/%E9%9B%85%E6%80%9D%E5%8F%A3%E8%AF%AD.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">雅思口语笔记分享</div></div><div class="info-2"><div class="info-item-1">近日在学习雅思，本文章用于记录雅思口语笔记并分享</div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/winter.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">流水</div><div class="author-info-description">珍惜淡定的心境，苦过后更加清</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">5</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">4</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/hslslsl"><i class="fab fa-github"></i><span>关注我</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/hslslsl" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:879966125@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">欢迎访问我的博客！</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Solidity%E5%85%A5%E9%97%A8%E7%AC%AC%E4%B8%80%E8%AF%BE%EF%BC%9A%E4%BB%8E%E9%9B%B6%E5%AE%9E%E7%8E%B0HelloWorld%E5%90%88%E7%BA%A6%EF%BC%8C%E5%90%83%E9%80%8F%E6%A0%B8%E5%BF%83%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B8%8E%E5%9F%BA%E7%A1%80%E9%80%BB%E8%BE%91"><span class="toc-number">1.</span> <span class="toc-text">Solidity入门第一课：从零实现HelloWorld合约，吃透核心数据类型与基础逻辑</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E5%90%88%E7%BA%A6%E5%9F%BA%E7%A1%80%E6%A1%86%E6%9E%B6%EF%BC%9A%E4%BB%8E%E2%80%9C%E5%A4%B4%E9%83%A8%E5%A3%B0%E6%98%8E%E2%80%9D%E5%BC%80%E5%A7%8B"><span class="toc-number">1.1.</span> <span class="toc-text">一、合约基础框架：从“头部声明”开始</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-SPDX%E8%AE%B8%E5%8F%AF%E8%AF%81%EF%BC%9A%E6%98%8E%E7%A1%AE%E4%BB%A3%E7%A0%81%E5%BC%80%E6%BA%90%E5%8D%8F%E8%AE%AE"><span class="toc-number">1.1.1.</span> <span class="toc-text">1. SPDX许可证：明确代码开源协议</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E7%BC%96%E8%AF%91%E5%99%A8%E7%89%88%E6%9C%AC%E6%8C%87%E5%AE%9A%EF%BC%9A%E9%81%BF%E5%85%8D%E5%85%BC%E5%AE%B9%E6%80%A7%E9%97%AE%E9%A2%98"><span class="toc-number">1.1.2.</span> <span class="toc-text">2. 编译器版本指定：避免兼容性问题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E6%A0%B8%E5%BF%83%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%EF%BC%9A%E5%90%88%E7%BA%A6%E7%9A%84%E2%80%9C%E5%9F%BA%E6%9C%AC%E7%A7%AF%E6%9C%A8%E2%80%9D"><span class="toc-number">1.2.</span> <span class="toc-text">二、核心数据类型：合约的“基本积木”</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%B8%83%E5%B0%94%E5%9E%8B%EF%BC%88bool%EF%BC%89%EF%BC%9A%E7%9C%9F-%E5%81%87%E5%88%A4%E6%96%AD"><span class="toc-number">1.2.1.</span> <span class="toc-text">1. 布尔型（bool）：真&#x2F;假判断</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%95%B4%E6%95%B0%E5%9E%8B%EF%BC%88uint-int%EF%BC%89%EF%BC%9A%E6%95%B0%E5%80%BC%E5%AD%98%E5%82%A8%E7%9A%84%E6%A0%B8%E5%BF%83"><span class="toc-number">1.2.2.</span> <span class="toc-text">2. 整数型（uint&#x2F;int）：数值存储的核心</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%B3%E9%94%AE%E7%BB%86%E8%8A%82%EF%BC%9A"><span class="toc-number">1.2.2.1.</span> <span class="toc-text">关键细节：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%AD%97%E8%8A%82%E4%B8%8E%E5%AD%97%E7%AC%A6%E4%B8%B2%EF%BC%88bytes-string%EF%BC%89%EF%BC%9A%E6%96%87%E6%9C%AC%E5%AD%98%E5%82%A8"><span class="toc-number">1.2.3.</span> <span class="toc-text">3. 字节与字符串（bytes&#x2F;string）：文本存储</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E5%8C%BA%E5%88%AB%E4%B8%8E%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF%EF%BC%9A"><span class="toc-number">1.2.3.1.</span> <span class="toc-text">核心区别与使用场景：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E5%9C%B0%E5%9D%80%E7%B1%BB%E5%9E%8B%EF%BC%88address%EF%BC%89%EF%BC%9A%E5%8C%BA%E5%9D%97%E9%93%BE%E8%B4%A6%E6%88%B7%E7%9A%84%E2%80%9C%E8%BA%AB%E4%BB%BD%E8%AF%81%E2%80%9D"><span class="toc-number">1.2.4.</span> <span class="toc-text">4. 地址类型（address）：区块链账户的“身份证”</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%B3%E9%94%AE%E7%89%B9%E6%80%A7%E4%B8%8E%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C%EF%BC%9A"><span class="toc-number">1.2.4.1.</span> <span class="toc-text">关键特性与常用操作：</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E5%A4%8D%E5%90%88%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%EF%BC%9A%E7%BB%84%E7%BB%87%E5%A4%8D%E6%9D%82%E6%95%B0%E6%8D%AE%E7%9A%84%E2%80%9C%E5%B7%A5%E5%85%B7%E2%80%9D"><span class="toc-number">1.3.</span> <span class="toc-text">三、复合数据类型：组织复杂数据的“工具”</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E7%BB%93%E6%9E%84%E4%BD%93%EF%BC%88struct%EF%BC%89%EF%BC%9A%E8%87%AA%E5%AE%9A%E4%B9%89%E5%A4%8D%E5%90%88%E7%B1%BB%E5%9E%8B"><span class="toc-number">1.3.1.</span> <span class="toc-text">1. 结构体（struct）：自定义复合类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%95%B0%E7%BB%84%EF%BC%88array%EF%BC%89%EF%BC%9A%E6%9C%89%E5%BA%8F%E6%95%B0%E6%8D%AE%E9%9B%86%E5%90%88"><span class="toc-number">1.3.2.</span> <span class="toc-text">2. 数组（array）：有序数据集合</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E7%89%B9%E6%80%A7%EF%BC%9A"><span class="toc-number">1.3.2.1.</span> <span class="toc-text">核心特性：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%98%A0%E5%B0%84%EF%BC%88mapping%EF%BC%89%EF%BC%9A%E9%94%AE%E5%80%BC%E5%AF%B9%E5%BF%AB%E9%80%9F%E6%9F%A5%E8%AF%A2"><span class="toc-number">1.3.3.</span> <span class="toc-text">3. 映射（mapping）：键值对快速查询</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%B3%E9%94%AE%E7%89%B9%E6%80%A7%E4%B8%8E%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9%EF%BC%9A"><span class="toc-number">1.3.3.1.</span> <span class="toc-text">关键特性与注意事项：</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E5%87%BD%E6%95%B0%E8%AE%BE%E8%AE%A1%EF%BC%9A%E5%90%88%E7%BA%A6%E7%9A%84%E2%80%9C%E8%A1%8C%E4%B8%BA%E9%80%BB%E8%BE%91%E2%80%9D"><span class="toc-number">1.4.</span> <span class="toc-text">四、函数设计：合约的“行为逻辑”</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%87%BD%E6%95%B0%E7%9A%84%E6%A0%B8%E5%BF%83%E5%B1%9E%E6%80%A7"><span class="toc-number">1.4.1.</span> <span class="toc-text">1. 函数的核心属性</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E5%8F%AF%E8%A7%81%E6%80%A7%E8%AF%A6%E8%A7%A3"><span class="toc-number">1.4.1.1.</span> <span class="toc-text">（1）可见性详解</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E7%8A%B6%E6%80%81%E4%BF%AE%E9%A5%B0%E7%AC%A6%E8%AF%A6%E8%A7%A3"><span class="toc-number">1.4.1.2.</span> <span class="toc-text">（2）状态修饰符详解</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%90%88%E7%BA%A6%E5%87%BD%E6%95%B0%E9%80%90%E5%8F%A5%E8%A7%A3%E6%9E%90"><span class="toc-number">1.4.2.</span> <span class="toc-text">2. 合约函数逐句解析</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89sayHello%EF%BC%9A%E6%9F%A5%E8%AF%A2%E5%9E%8B%E5%87%BD%E6%95%B0"><span class="toc-number">1.4.2.1.</span> <span class="toc-text">（1）sayHello：查询型函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%882%EF%BC%89setHelloWorld%EF%BC%9A%E5%86%99%E5%85%A5%E5%9E%8B%E5%87%BD%E6%95%B0"><span class="toc-number">1.4.2.2.</span> <span class="toc-text">（2）setHelloWorld：写入型函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%883%EF%BC%89addinfo%EF%BC%9A%E5%86%85%E9%83%A8%E5%B7%A5%E5%85%B7%E5%87%BD%E6%95%B0"><span class="toc-number">1.4.2.3.</span> <span class="toc-text">（3）addinfo：内部工具函数</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E5%AD%98%E5%82%A8%E4%BD%8D%E7%BD%AE%EF%BC%9A%E6%95%B0%E6%8D%AE%E5%AD%98%E5%9C%A8%E5%93%AA%E9%87%8C%EF%BC%9F"><span class="toc-number">1.5.</span> <span class="toc-text">五、存储位置：数据存在哪里？</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E8%A7%84%E5%88%99%EF%BC%9A"><span class="toc-number">1.5.1.</span> <span class="toc-text">核心规则：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AD%E3%80%81%E5%90%88%E7%BA%A6%E9%83%A8%E7%BD%B2%E4%B8%8E%E8%B0%83%E7%94%A8%EF%BC%9A%E5%8A%A8%E6%89%8B%E5%AE%9E%E8%B7%B5"><span class="toc-number">1.6.</span> <span class="toc-text">六、合约部署与调用：动手实践</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A41%EF%BC%9A%E6%89%93%E5%BC%80Remix%E5%B9%B6%E5%88%9B%E5%BB%BA%E5%90%88%E7%BA%A6"><span class="toc-number">1.6.1.</span> <span class="toc-text">步骤1：打开Remix并创建合约</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A42%EF%BC%9A%E7%BC%96%E8%AF%91%E5%90%88%E7%BA%A6"><span class="toc-number">1.6.2.</span> <span class="toc-text">步骤2：编译合约</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A43%EF%BC%9A%E9%83%A8%E7%BD%B2%E5%90%88%E7%BA%A6"><span class="toc-number">1.6.3.</span> <span class="toc-text">步骤3：部署合约</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A44%EF%BC%9A%E8%B0%83%E7%94%A8%E5%87%BD%E6%95%B0"><span class="toc-number">1.6.4.</span> <span class="toc-text">步骤4：调用函数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%83%E3%80%81%E6%96%B0%E6%89%8B%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E4%B8%8E%E9%81%BF%E5%9D%91%E6%8C%87%E5%8D%97"><span class="toc-number">1.7.</span> <span class="toc-text">七、新手常见问题与避坑指南</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AB%E3%80%81%E6%80%BB%E7%BB%93"><span class="toc-number">1.8.</span> <span class="toc-text">八、总结</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2025/09/10/solidity_session1/" title="Solidity入门第一课"><img src="/img/Solidity.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Solidity入门第一课"/></a><div class="content"><a class="title" href="/2025/09/10/solidity_session1/" title="Solidity入门第一课">Solidity入门第一课</a><time datetime="2025-09-10T14:57:58.830Z" title="发表于 2025-09-10 22:57:58">2025-09-10</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/09/10/%E9%9B%85%E6%80%9D%E5%8F%A3%E8%AF%AD/" title="雅思口语笔记分享"><img src="/img/%E9%9B%85%E6%80%9D%E5%8F%A3%E8%AF%AD.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="雅思口语笔记分享"/></a><div class="content"><a class="title" href="/2025/09/10/%E9%9B%85%E6%80%9D%E5%8F%A3%E8%AF%AD/" title="雅思口语笔记分享">雅思口语笔记分享</a><time datetime="2025-09-10T14:19:13.102Z" title="发表于 2025-09-10 22:19:13">2025-09-10</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/08/14/%E9%9B%85%E6%80%9D%E5%86%99%E4%BD%9C/" title="雅思写作笔记分享"><img src="/img/%E9%9B%85%E6%80%9D%E4%BD%9C%E6%96%87.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="雅思写作笔记分享"/></a><div class="content"><a class="title" href="/2025/08/14/%E9%9B%85%E6%80%9D%E5%86%99%E4%BD%9C/" title="雅思写作笔记分享">雅思写作笔记分享</a><time datetime="2025-08-14T06:03:12.146Z" title="发表于 2025-08-14 14:03:12">2025-08-14</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/07/27/pigco/" title="PicGo+Github搭建个人图床"><img src="/img/picgo.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="PicGo+Github搭建个人图床"/></a><div class="content"><a class="title" href="/2025/07/27/pigco/" title="PicGo+Github搭建个人图床">PicGo+Github搭建个人图床</a><time datetime="2025-07-27T05:19:55.595Z" title="发表于 2025-07-27 13:19:55">2025-07-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/07/26/hello-world/" title="我的第一篇博客"><img src="/img/myfirstblog.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="我的第一篇博客"/></a><div class="content"><a class="title" href="/2025/07/26/hello-world/" title="我的第一篇博客">我的第一篇博客</a><time datetime="2025-07-25T16:00:00.000Z" title="发表于 2025-07-26 00:00:00">2025-07-26</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(/img/top_img.png);"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;2025 By 流水</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.4.2</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><div class="js-pjax"><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = `%%{init:{ 'theme':'${theme}'}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (true) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script></div><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-show-text.min.js" data-mobile="false" data-text="I,LOVE,YOU" data-fontsize="15px" data-random="false" async="async"></script><script async data-pjax src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-busuanzi@2.3/js/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章..." type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>
